@@ -31,6 +31,7 @@ https://drive.google.com/file/d/1GHMSwiOsYEQY1oRaJ548FfOX41OujLdd/view?usp=shari
 Example:
 
     Input: b1 = Book("Python Basics", "Alice", 29.99)
+           print(b1.display())
     Output: Title: Python Basics, Author: Alice, Price: $29.99
 ---
 
