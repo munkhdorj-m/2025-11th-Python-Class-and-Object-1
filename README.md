@@ -1,7 +1,9 @@
 # Python Class and Objects
 
-Python Review PDF:
-https://drive.google.com/file/d/1_Spi5yo7H50BZ933mYh-zUveuMAroKe4/view?usp=sharing
+Python Class and Objects PDF:
+
+https://drive.google.com/file/d/1GHMSwiOsYEQY1oRaJ548FfOX41OujLdd/view?usp=sharing
+
 
 ---
 
