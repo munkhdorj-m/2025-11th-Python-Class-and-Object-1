@@ -1,56 +1,41 @@
 import pytest
-from assignment import check_number, rectangle_area, is_divisible_by_5, sum_is_even_or_odd, divisible_by_sum_of_digits
+from assignment import Rectangle, Book, ShoppingCart
 
-@pytest.mark.parametrize("length, width, expected", [
-    (5, 3, 15),
-    (10, 2, 20),
-    (7, 7, 49),
-    (1, 9, 9),
-    (0, 5, 0)
+@pytest.mark.parametrize("length, width, expected_area, expected_perimeter", [
+    (5, 3, 15, 16),   # normal case
+    (10, 2, 20, 24),  # different ratio
+    (1, 1, 1, 4),     # square
+    (0, 5, 0, 10),    # zero length edge case
 ])
-def test1(length, width, expected):
-    assert rectangle_area(length, width) == expected
+def test1(length, width, expected_area, expected_perimeter):
+    rect = Rectangle(length, width)
+    assert rect.area() == expected_area
+    assert rect.perimeter() == expected_perimeter
 
-
-@pytest.mark.parametrize("num, expected", [
-    (5, "Positive"),
-    (-7, "Negative"),
-    (0, "Neither"),
-    (123, "Positive"),
-    (-1, "Negative")
+@pytest.mark.parametrize("title, author, price, expected_output", [
+    ("Python Basics", "Alice", 29.99, "Title: Python Basics, Author: Alice, Price: $29.99"),
+    ("AI Guide", "Bob", 45.5, "Title: AI Guide, Author: Bob, Price: $45.5"),
+    ("Data Science", "Charlie", 0, "Title: Data Science, Author: Charlie, Price: $0"),
 ])
-def test2(num, expected):
-    assert check_number(num) == expected
+def test2(title, author, price, expected_output):
+    book = Book(title, author, price)
+    assert book.display() == expected_output
 
-@pytest.mark.parametrize("num, expected", [
-    (25, True),
-    (12, False),
-    (0, True),
-    (55, True),
-    (7, False)
+def test3_1():
+    cart = ShoppingCart()
+    cart.add_item("Apple", 1.5)
+    cart.add_item("Banana", 2.0)
+    cart.add_item("Book", 10.0)
+    assert cart.total_price() == pytest.approx(13.5)
+
+@pytest.mark.parametrize("items, expected_output, expected_total", [
+    ([("Pen", 2), ("Notebook", 5)], "Pen: $2\nNotebook: $5", 7),
+    ([("Milk", 3.5)], "Milk: $3.5", 3.5),
+    ([("A", 1), ("B", 2), ("C", 3)], "A: $1\nB: $2\nC: $3", 6),
 ])
-def test3(num, expected):
-    assert is_divisible_by_5(num) == expected
-
-
-@pytest.mark.parametrize("a, b, c, d, expected", [
-    (1, 2, 3, 4, "Even"), 
-    (1, 3, 4, 5, "Odd"),  
-    (2, 2, 2, 2, "Even"),  
-    (0, 1, 7, 3, "Odd"),  
-    (9, 9, 9, 9, "Even")   
-])
-def test4(a, b, c, d, expected):
-    assert sum_is_even_or_odd(a, b, c, d) == expected
-
-
-@pytest.mark.parametrize("num, expected", [
-    (121, False),    # 1+2+1=4 → 121%4=1 → False
-    (456, False),    # 4+5+6=15 → 456%15=6 → False
-    (132, True),     # 1+3+2=6 → 132%6=0 → True
-    (111, True),     # 1+1+1=3 → 111%3=0 → True
-    (123, False),    # 1+2+3=6 → 123%6=3 → False
-    (222, True)      # 2+2+2=6 → 222%6=0 → True
-])
-def test5(num, expected):
-    assert divisible_by_sum_of_digits(num) == expected
+def test3_2(items, expected_output, expected_total):
+    cart = ShoppingCart()
+    for name, price in items:
+        cart.add_item(name, price)
+    assert cart.show_items() == expected_output
+    assert cart.total_price() == expected_total
