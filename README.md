@@ -33,7 +33,7 @@ https://drive.google.com/file/d/1_Spi5yo7H50BZ933mYh-zUveuMAroKe4/view?usp=shari
 **Problem:**
 
 - Create a `ShoppingCart` class with:
-  - Method `add_item(name, price)`
+  - Method `add_item(name, price)` # where name and price are list
   - Method `total_price()` → returns total cost
   - Method `show_items()` → returns all items neatly listed
     
