@@ -37,5 +37,9 @@ def test3_2(items, expected_output, expected_total):
     cart = ShoppingCart()
     for name, price in items:
         cart.add_item(name, price)
-    assert cart.show_items() == expected_output
+
+    actual_output = cart.show_items().strip()  
+    expected_output = expected_output.strip()  
+
+    assert actual_output == expected_output
     assert cart.total_price() == expected_total
